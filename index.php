@@ -1,8 +1,25 @@
 <?php
 
 
-require __DIR__ . '/models/news.php';
+//require __DIR__ . '/models/news.php';
+//
+//
+//include __DIR__ . '/views/index.php';
+//include __DIR__ . '/views/add.php';
+
+require_once __DIR__ . '/controllers/NewsController.php';
+
+$ctrl = isset($_GET['ctrl']) ? $_GET['ctrl'] : 'News';
+$act = isset($_GET['act']) ? $_GET['act'] : 'All';
+$id = $_GET['id'];
 
 
-include __DIR__ . '/views/index.php';
-include __DIR__ . '/views/add.php';
+$controllerClassName = $ctrl . 'Controller';
+
+$controller = new $controllerClassName;
+$method = 'action' . $act;
+
+//var_dump($controller);
+$controller->$method($id);
+
+//var_dump($method);
