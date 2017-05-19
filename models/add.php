@@ -10,20 +10,20 @@
 require __DIR__ . '/news.php';
 
 if (!empty($_POST)) {
-    $newItem = [];
+    $newItem = new News;
 
     if (!empty($_POST['title'])) {
-        $newItem['title'] = $_POST['title'];
+        $newItem->title = $_POST['title'];
     }
     if (!empty($_POST['newText'])) {
-        $newItem['newText'] = $_POST['newText'];
+        $newItem->newText = $_POST['newText'];
     }
     $date = date("c");
 
-    $newItem['date'] = date("c");
+    $newItem->date = date("c");
 //    var_dump($newItem);
 
-    $news->news_add($newItem);
+    $newItem->addOne($newItem);
 
     header('Location: /../index.php');
 

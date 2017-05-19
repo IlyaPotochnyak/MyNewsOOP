@@ -22,4 +22,4 @@ $method = 'action' . $act;
 //var_dump($controller);
 $controller->$method($id);
 
-//var_dump($method);
+include __DIR__ . '/views/add.php';

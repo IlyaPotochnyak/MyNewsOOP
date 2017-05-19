@@ -46,4 +46,15 @@ abstract class AbstractModel
 
     }
 
+    public static function addOne($newItem)
+    {
+
+        $sql = "INSERT INTO news (date, title, newText)
+                VALUES ('".$newItem->date."', '".$newItem->title."', '".$newItem->newText."')";
+        $db = new DB;
+
+        $db->addItem($sql);
+
+    }
+
 }

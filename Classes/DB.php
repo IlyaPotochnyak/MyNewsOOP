@@ -60,4 +60,11 @@ class DB
         return $ret;
     }
 
+    public function addItem($sql)
+    {
+//
+        mysql_query($sql);
+
+    }
+
 }
