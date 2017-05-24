@@ -7,6 +7,7 @@
  * Time: 15:59
  */
 abstract class AbstractModel
+    implements I_Model
 {
 
     protected static $class;

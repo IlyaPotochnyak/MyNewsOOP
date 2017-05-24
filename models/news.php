@@ -7,8 +7,8 @@
  * Time: 15:26
  */
 
-require __DIR__ . '/../Classes/AbstractModel.php';
-require_once __DIR__ . '/../Classes/DB.php';
+//require __DIR__ . '/../Classes/AbstractModel.php';
+//require_once __DIR__ . '/../Classes/DB.php';
 
 class News extends AbstractModel
 {

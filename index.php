@@ -7,7 +7,10 @@
 //include __DIR__ . '/views/index.php';
 //include __DIR__ . '/views/add.php';
 
-require_once __DIR__ . '/controllers/NewsController.php';
+//require_once __DIR__ . '/controllers/NewsController.php';
+require_once __DIR__ . '/autoload.php';
+
+
 
 $ctrl = isset($_GET['ctrl']) ? $_GET['ctrl'] : 'News';
 $act = isset($_GET['act']) ? $_GET['act'] : 'All';

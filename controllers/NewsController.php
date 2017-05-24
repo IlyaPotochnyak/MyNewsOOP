@@ -6,33 +6,48 @@
  * Date: 17.05.2017
  * Time: 15:18
  */
-require_once __DIR__ . '/../models/News.php';
+//require_once __DIR__ . '/../models/News.php';
 
 class NewsController
 {
 //    public $actionAll = '111';
 
 
+    public function actionAll()
+    {
 
-    public function actionAll() {
-
-        $items = News::getAll();
+        $news = News::getAll();
 //        var_dump($items);die;
-        include __DIR__ . '/../views/index.php';
 
+        $view = new View();
+
+        $view->items = $news;
+//        include __DIR__ . '/../views/index.php';
+//        var_dump($view->items);
+
+        $view->display('/all.php');
 
 
     }
 
-    public function actionOne($id) {
+    public function actionOne($id)
+    {
 
-        $items = News::getOne($id);
+        $news = News::getOne($id);
 //        var_dump($items);die;
 
-        include __DIR__ . '/../views/index.php';
+//        include __DIR__ . '/../views/index.php';
 
 
+        $view = new View();
+
+
+
+        $view->items = $news;
+//        include __DIR__ . '/../views/index.php';
+//        var_dump($view->items);
+
+        $view->display('/one.php');
 
     }
-
 }

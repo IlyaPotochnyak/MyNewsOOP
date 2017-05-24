@@ -54,7 +54,7 @@ class DB
 //            $news_item->newText = $row['newText'];
 
 //            var_dump($news_item);die;
-            $ret[] = $row;
+            $ret = $row;
         }
 //   var_dump($ret); die;
         return $ret;
