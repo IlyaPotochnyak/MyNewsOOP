@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-
+<h3>Добавить новость</h3>
 <form action="/../add.php" method="post">
     Заголовок<input type="text" name="title"><br>
     Текст новости<input type="text" name="newText"><br>

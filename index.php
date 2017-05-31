@@ -25,4 +25,8 @@ $method = 'action' . $act;
 //var_dump($controller);
 $controller->$method($id);
 
+
+
+
 include __DIR__ . '/views/add.php';
+include __DIR__ . '/views/search.php';

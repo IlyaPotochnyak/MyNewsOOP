@@ -47,6 +47,7 @@ abstract class AbstractModel
         $class = get_called_class();
 
 
+
         $sql = 'SELECT * FROM ' . static::$table . ' WHERE id=:id';
 
 
@@ -79,6 +80,47 @@ abstract class AbstractModel
         $db = new DB;
 
         $db->execute($sql, $data);
+
+    }
+
+    public static function findByColumn ($column, $value)
+    {
+
+        $class = get_called_class();
+//        var_dump($class);die;
+
+
+        $sql = 'SELECT * FROM ' . static::$table . ' WHERE ' . $column . '=:value';
+//echo $sql; die;
+
+        $db = new DB();
+        $db->setClassName($class);
+
+        return $db->query($sql, [':value'=>$value])[0];
+
+    }
+
+    public static function updateOne($id, $itemData)
+    {
+//var_dump($itemData);die;
+        $itemKeys = [];
+        foreach ($itemData as $k=>$v){
+            $itemKeys[$k] = $k;
+        }
+//        var_dump($itemKeys);die;
+        $sql = 'UPDATE ' . static::$table . ' 
+        SET ' .
+            $itemKeys['title'] . "='" . $itemData['title'] .
+            "', " . $itemKeys['newText'] . "='" . $itemData['newText'] . "'
+            WHERE id=" . $id;
+
+        ;
+//        echo $sql; die;
+        $db = new DB;
+
+        return $db->execute($sql);
+
+
 
     }
 

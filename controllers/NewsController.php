@@ -50,4 +50,49 @@ class NewsController
         $view->display('/one.php');
 
     }
+
+    public function actionFind()
+    {
+        if (!empty($_GET['column']) && !empty($_GET['value'])) {
+            $column = $_GET['column'];
+            $value = $_GET['value'];
+
+
+        } else {
+            header('Location: /../index.php');
+            exit;
+        }
+
+        $news = NewsModel::findByColumn($column, $value);
+//        var_dump($news);
+
+        $view = new View();
+
+
+        $view->items = $news;
+//        include __DIR__ . '/../views/index.php';
+//        var_dump($view->items);
+
+        $view->display('/one.php');
+    }
+
+    public function actionEdit()
+    {
+//        echo $_GET['id']; die;
+        if (!empty($_GET['id']) && !empty($_GET['title']) && !empty($_GET['newText']) ) {
+            $id = $_GET['id'];
+            $itemData['title'] = $_GET['title'];
+            $itemData['newText'] = $_GET['newText'];
+
+//            var_dump($data);die;
+
+
+        } else {
+            header('Location: /../index.php');
+            exit;
+        }
+        $newItem = NewsModel::updateOne($id, $itemData) ;
+        $view = self::actionAll();
+    }
+
 }
