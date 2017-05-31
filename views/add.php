@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form action="/../models/add.php" method="post">
+<form action="/../add.php" method="post">
     Заголовок<input type="text" name="title"><br>
     Текст новости<input type="text" name="newText"><br>
     <input type="submit">

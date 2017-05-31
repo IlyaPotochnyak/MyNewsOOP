@@ -16,8 +16,8 @@ class NewsController
     public function actionAll()
     {
 
-        $news = News::getAll();
-//        var_dump($items);die;
+        $news = NewsModel::findAll();
+//        var_dump($news);die;
 
         $view = new View();
 
@@ -33,8 +33,8 @@ class NewsController
     public function actionOne($id)
     {
 
-        $news = News::getOne($id);
-//        var_dump($items);die;
+        $news = NewsModel::findOne($id);
+//        var_dump($news);die;
 
 //        include __DIR__ . '/../views/index.php';
 

@@ -6,55 +6,79 @@
  * Date: 17.05.2017
  * Time: 15:59
  */
+
+require __DIR__ . '/DB.php';
+
 abstract class AbstractModel
-    implements I_Model
+
 {
 
-    protected static $class;
-//    public function __construct()
-//    {
-//        mysql_connect('localhost', 'root', '');
-//        mysql_select_db('news');
-//        echo'111';die;
-//    }
+    static protected $table;
+    protected $data = [];
 
-    public  static function getAll() {
-
-
-
-        $sql = 'SELECT * FROM news ORDER BY date DESC';
-
-        $db = new DB();
-
-        return $db->queryAll($sql,static::$class);
-
-
-
-    }
-    public  static function getOne($id) {
-
-
-
-
-        $sql = 'SELECT * FROM news WHERE id=' . $id;
-
-
-        $db = new DB();
-
-        return $db->queryOne($sql, static::$class);
-
-
-
-    }
-
-    public static function addOne($newItem)
+    public function __set($name, $value)
     {
+        $this->data[$name] = $value;
+    }
 
-        $sql = "INSERT INTO news (date, title, newText)
-                VALUES ('".$newItem->date."', '".$newItem->title."', '".$newItem->newText."')";
+    public function __get($name)
+    {
+        return $this->data[$name];
+    }
+
+    public  static function findAll() {
+
+        $class = get_called_class();
+
+//        var_dump($class); die;
+
+        $sql = 'SELECT * FROM ' . static::$table . ' ORDER BY date DESC';
+
+        $db = new DB();
+        $db->setClassName($class);
+
+        return $db->query($sql);
+
+
+
+    }
+    public  static function findOne($id) {
+
+        $class = get_called_class();
+
+
+        $sql = 'SELECT * FROM ' . static::$table . ' WHERE id=:id';
+
+
+        $db = new DB();
+        $db->setClassName($class);
+
+       return $db->query($sql, [':id'=>$id])[0];
+
+
+
+    }
+
+    public  function insert($newItem)
+    {
+       $cols = array_keys($this->data);
+
+
+        $data = [];
+        foreach ($cols as $col) {
+
+            $data[':' . $col] = $this->data[$col];
+        }
+//        var_dump($data);die;
+
+        $sql = 'INSERT INTO ' .  static::$table . ' 
+        (' . implode(', ', $cols) .') 
+        VALUES
+        (' . implode(', ', array_keys($data)) .')';
+//        echo $sql; die;
         $db = new DB;
 
-        $db->addItem($sql);
+        $db->execute($sql, $data);
 
     }
 
