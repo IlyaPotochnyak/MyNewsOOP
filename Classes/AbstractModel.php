@@ -107,7 +107,7 @@ abstract class AbstractModel
         foreach ($itemData as $k=>$v){
             $itemKeys[$k] = $k;
         }
-//        var_dump($itemKeys);die;
+
         $sql = 'UPDATE ' . static::$table . ' 
         SET ' .
             $itemKeys['title'] . "='" . $itemData['title'] .
@@ -121,6 +121,15 @@ abstract class AbstractModel
         return $db->execute($sql);
 
 
+
+    }
+
+    public static function deleteOne($id)
+    {
+        $sql = 'DELETE FROM ' . static::$table . ' WHERE id=:id';
+//        echo $sql;die;
+        $db = new DB;
+        $db->execute($sql, [':id' => $id]);
 
     }
 

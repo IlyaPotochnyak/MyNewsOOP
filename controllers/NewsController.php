@@ -95,4 +95,10 @@ class NewsController
         $view = self::actionAll();
     }
 
+    public function actionDelete($id)
+    {
+        $itemDelete = NewsModel::deleteOne($id);
+        $view = self::actionAll();
+    }
+
 }

@@ -37,7 +37,9 @@ class DB
 
     public function execute($sql, $params=[])
     {
+//var_dump($params);die;
         $sth = $this->dbh->prepare($sql);
+        //var_dump($sth);die;
         return $sth->execute($params);
 
     }

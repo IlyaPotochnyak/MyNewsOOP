@@ -10,9 +10,17 @@
         <input type="hidden" name="id" value="<?php echo $items->id?>">
         <input type="submit" name="edit" value="Редактировать">
     </form>
+
     <?php if (isset($_GET['edit'])){
         include __DIR__ . '/edit.php';
     } ?>
+
+    <form action="" method="get">
+        <input type="hidden" name="act" value="Delete">
+        <input type="hidden" name="id" value="<? echo $items->id; ?>">
+        <input type="submit" value="Удалить">
+
+    </form>
 
     <a href="index.php">На главную</a><br>
 
