@@ -10,20 +10,17 @@
 
 class NewsController
 {
-//    public $actionAll = '111';
-
 
     public function actionAll()
     {
 
         $news = NewsModel::findAll();
-//        var_dump($news);die;
+
 
         $view = new View();
 
         $view->items = $news;
-//        include __DIR__ . '/../views/index.php';
-//        var_dump($view->items);
+
 
         $view->display('/all.php');
 
@@ -32,22 +29,34 @@ class NewsController
 
     public function actionOne($id)
     {
-
         $news = NewsModel::findOne($id);
-//        var_dump($news);die;
-
-//        include __DIR__ . '/../views/index.php';
-
 
         $view = new View();
-
-
-
         $view->items = $news;
-//        include __DIR__ . '/../views/index.php';
-//        var_dump($view->items);
-
         $view->display('/one.php');
+
+    }
+
+    public function actionAdd()
+    {
+        if (!empty($_GET)) {
+
+            $newItem = new NewsModel();
+
+            if (!empty($_GET['title'])) {
+                $newItem->title = $_GET['title'];
+            }
+            if (!empty($_GET['newText'])) {
+                $newItem->newText = $_GET['newText'];
+            }
+            $date = date("c");
+
+            $newItem->date = date("c");
+            $newItem->insert($newItem);
+
+            header('Location: /../index.php');
+            exit;
+        }
 
     }
 
@@ -64,41 +73,34 @@ class NewsController
         }
 
         $news = NewsModel::findByColumn($column, $value);
-//        var_dump($news);
 
         $view = new View();
-
-
         $view->items = $news;
-//        include __DIR__ . '/../views/index.php';
-//        var_dump($view->items);
-
         $view->display('/one.php');
     }
 
     public function actionEdit()
     {
-//        echo $_GET['id']; die;
         if (!empty($_GET['id']) && !empty($_GET['title']) && !empty($_GET['newText']) ) {
             $id = $_GET['id'];
             $itemData['title'] = $_GET['title'];
             $itemData['newText'] = $_GET['newText'];
-
-//            var_dump($data);die;
-
-
-        } else {
+        }
+        else {
             header('Location: /../index.php');
             exit;
         }
         $newItem = NewsModel::updateOne($id, $itemData) ;
-        $view = self::actionAll();
+
+        header('Location: /../index.php');
+        exit;
     }
 
     public function actionDelete($id)
     {
         $itemDelete = NewsModel::deleteOne($id);
-        $view = self::actionAll();
+        header('Location: /../index.php');
+        exit;
     }
 
 }

@@ -21,8 +21,8 @@ function __autoload($class) {
     else if (file_exists(__DIR__ . '/../models/' . $class . '.php')) {
         require __DIR__ . '/../models/' . $class . '.php';
     }
-//    else if (file_exists(__DIR__ . '/' . $class . '.php')) {
-//        require __DIR__ . '/' . $class . '.php';
-//    }
+    else if (file_exists(__DIR__ . '/../Classes/' . $class . '.php')) {
+        require __DIR__ . '/../Classes/' . $class . '.php';
+    }
 
 }

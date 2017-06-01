@@ -9,7 +9,8 @@
 </head>
 <body>
 <h3>Добавить новость</h3>
-<form action="/../add.php" method="post">
+<form action="" method="get">
+    <input type="hidden" name="act" value="add">
     Заголовок<input type="text" name="title"><br>
     Текст новости<input type="text" name="newText"><br>
     <input type="submit">

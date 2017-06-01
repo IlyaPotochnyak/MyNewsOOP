@@ -7,7 +7,7 @@
  * Time: 15:31
  */
 
-require __DIR__ . '/../Classes/AbstractModel.php';
+//require __DIR__ . '/../Classes/AbstractModel.php';
 class NewsModel
     extends AbstractModel
 {
