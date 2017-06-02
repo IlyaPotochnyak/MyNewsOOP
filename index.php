@@ -17,13 +17,18 @@ $act = isset($_GET['act']) ? $_GET['act'] : 'All';
 $id = $_GET['id'];
 
 
-$controllerClassName = $ctrl . 'Controller';
+try {$controllerClassName = $ctrl . 'Controller';
 
 $controller = new $controllerClassName;
 $method = 'action' . $act;
 
 //var_dump($controller);
-$controller->$method($id);
+$controller->$method($id);}
+catch (Exception $e) {
+    $view = new  View();
+    $view->error = $e->getMessage();
+    $view->display('/error.php');
+}
 
 
 

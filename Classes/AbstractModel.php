@@ -26,11 +26,16 @@ abstract class AbstractModel
         return $this->data[$name];
     }
 
+    public function __isset($k)
+    {
+        isset($this->data[$k]);
+    }
+
     public  static function findAll() {
 
         $class = get_called_class();
 
-//        var_dump($class); die;
+//        var_dump($this->data); die;
 
         $sql = 'SELECT * FROM ' . static::$table . ' ORDER BY date DESC';
 
@@ -45,6 +50,7 @@ abstract class AbstractModel
     public  static function findOne($id) {
 
         $class = get_called_class();
+
 
 
 
@@ -65,6 +71,7 @@ abstract class AbstractModel
        $cols = array_keys($this->data);
 
 
+
         $data = [];
         foreach ($cols as $col) {
 
@@ -79,7 +86,13 @@ abstract class AbstractModel
 //        echo $sql; die;
         $db = new DB;
 
-        $db->execute($sql, $data);
+        $res = $db->execute($sql, $data);
+
+        if (!$res){
+            throw new ModelException('Не удалось добавить запись в БД');
+        }
+
+        $this->id = $db->lastInsertId();
 
     }
 
@@ -96,13 +109,19 @@ abstract class AbstractModel
         $db = new DB();
         $db->setClassName($class);
 
-        return $db->query($sql, [':value'=>$value])[0];
+        $res = $db->query($sql, [':value'=>$value])[0];
+
+        if (!$res){
+            throw new ModelException('Не удалось найти запись в БД');
+        }
+        return $res;
+
 
     }
 
     public static function updateOne($id, $itemData)
     {
-//var_dump($itemData);die;
+
         $itemKeys = [];
         foreach ($itemData as $k=>$v){
             $itemKeys[$k] = $k;
@@ -118,18 +137,26 @@ abstract class AbstractModel
 //        echo $sql; die;
         $db = new DB;
 
-        return $db->execute($sql);
+        $res =  $db->execute($sql);
 
-
-
+        if (!$res){
+            throw new ModelException('Не удалось добавить запись в БД');
+        }
+        return $res;
     }
+
+
 
     public static function deleteOne($id)
     {
         $sql = 'DELETE FROM ' . static::$table . ' WHERE id=:id';
 //        echo $sql;die;
         $db = new DB;
-        $db->execute($sql, [':id' => $id]);
+        $res = $db->execute($sql, [':id' => $id]);
+
+        if (!$res){
+            throw new ModelException('Не удалось удалить запись из БД');
+        }
 
     }
 

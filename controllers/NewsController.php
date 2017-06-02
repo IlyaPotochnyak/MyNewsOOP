@@ -46,16 +46,27 @@ class NewsController
             if (!empty($_GET['title'])) {
                 $newItem->title = $_GET['title'];
             }
+            else {
+                throw new ModelException('Не введен заголовок');
+            }
+
             if (!empty($_GET['newText'])) {
                 $newItem->newText = $_GET['newText'];
             }
+            else {
+                throw new ModelException('Не введен текст записи');
+            }
+
             $date = date("c");
 
             $newItem->date = date("c");
             $newItem->insert($newItem);
 
             header('Location: /../index.php');
-            exit;
+
+        }
+        else {
+                throw new ModelException('Неверно введены данные');
         }
 
     }
@@ -68,8 +79,7 @@ class NewsController
 
 
         } else {
-            header('Location: /../index.php');
-            exit;
+            throw new ModelException('Неверные параметры поиска');
         }
 
         $news = NewsModel::findByColumn($column, $value);

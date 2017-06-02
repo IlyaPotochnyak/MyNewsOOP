@@ -17,7 +17,10 @@ class DB
 //        mysql_select_db('news');
 //        echo'111';die;
         $this->dbh = new PDO('mysql:dbname=news;host=localhost', 'root', '');
+        if (!$this->dbh){
 
+            throw new ModelException('Не удалось соединиться с БД');
+        }
     }
 
     public function setClassName ($className)
@@ -42,6 +45,11 @@ class DB
         //var_dump($sth);die;
         return $sth->execute($params);
 
+    }
+
+    public function lastInsertId()
+    {
+        return $this->dbh->lastInsertId();
     }
 
 
