@@ -62,7 +62,39 @@ class NewsController
             $newItem->date = date("c");
             $newItem->insert($newItem);
 
-            header('Location: /../index.php');
+//            var_dump($newItem->title);die;
+
+
+            $mail = new PHPMailer();
+//            $mail->isSMTP();
+            $mail->Host = 'smtp.ukr.net';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'i.potochnyak@ukr.net';
+            $mail->Password = 'iluha1985';
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port = 465;
+            $mail->isHTML(true);
+
+            $mail->setFrom('i.potochnyak@ukr.net');
+            $mail->addAddress('iluha.diego@gmail.com');
+            $mail->addReplyTo('i.potochnyak@ukr.net');
+
+            $mail->Subject = 'New item added to the DB';
+            $mail->Body = 'New item named ' . $newItem->title;
+            $mail->AltBody = 'New item named ' . $newItem->title;
+
+            if(!$mail->send()) {
+                echo 'Message could not be sent.';
+                echo 'Mailer Error: ' . $mail->ErrorInfo;
+//                die;
+            } else {
+//                echo 'Message has been sent';
+                header('Location: /../index.php');
+//                die;
+            }
+
+
+
 
         }
         else {

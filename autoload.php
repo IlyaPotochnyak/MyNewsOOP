@@ -6,8 +6,13 @@
  * Time: 14:26
  */
 
+//require __DIR__ . '/vendor/autoload.php';
+//echo 111;die;
+
 
 function __autoload($class) {
+    var_dump($class);die;
+
 
     if (file_exists(__DIR__ . '/Classes/' . $class . '.php')) {
         require __DIR__ . '/Classes/' . $class . '.php';

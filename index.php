@@ -1,14 +1,11 @@
 <?php
 
 
-//require __DIR__ . '/models/news.php';
-//
-//
-//include __DIR__ . '/views/index.php';
-//include __DIR__ . '/views/add.php';
 
-//require_once __DIR__ . '/controllers/NewsController.php';
-require_once __DIR__ . '/autoload.php';
+
+
+//require_once __DIR__ . '/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 
 
